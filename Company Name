@@ -1,0 +1,27 @@
+import requests 
+from bs4 import BeautifulSoup 
+import pandas as pd
+import re
+
+
+
+
+#importing file where all urls are listed in a column(column name is url)
+file=pd.read_csv("Desktop/ExtractCompanyNamesFromWebsites.csv") 
+
+
+
+company_name=[]  # creating empty dataframe where the extracted value will be save.
+
+for index,row in file.iterrows():
+    webpage= row['url']
+    response = requests.get(webpage)
+    html_soup = BeautifulSoup(response.text, 'html.parser')
+    com_name = html_soup.find(string=re.compile("Ltd. | GmbH"))  #add all words on which you want to search like ltd., LLP
+    company_name.append(com_name)
+
+file['company_name']=company_name  #inserting company name to a new column created in csv file.
+
+
+#saving output file to "out_ExtractCompanyNamesFromWebsites.csv"
+file.to_csv("out_ExtractCompanyNamesFromWebsites.csv")
