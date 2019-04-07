@@ -1,0 +1,23 @@
+#for single url
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+import requests 
+import urllib
+
+
+
+url=input('Kindly inter a url: ')
+
+
+response = requests.get(url)
+html_soup = BeautifulSoup(response.text)
+main_content = html_soup.find('body')
+# main_content = html_soup.find("div", {"class":"product-description"})
+
+
+
+filename = url.rsplit('/', 1)[1]
+file = open(filename, "w")
+file.write(str(main_content))
+file.close()
