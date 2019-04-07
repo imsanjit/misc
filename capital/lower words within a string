@@ -1,0 +1,15 @@
+text = 'sssample Text with And without'
+
+uppers = []
+lowers = []
+
+# Note that loop below could be modified to skip ,.-\/; and etc if neccessary
+for word in text.split():
+  if word[0].isupper():
+    uppers.append(word) 
+  else:
+    lowers.append(word)
+     
+    
+print(uppers)
+print(lowers)
