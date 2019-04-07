@@ -1,0 +1,22 @@
+#for multiple url separated by commam and save to your location computer
+
+from bs4 import BeautifulSoup
+import requests 
+import urllib
+from google.colab import files
+
+
+url_in=input('Kindly inter a url or list of urls sepatared by commams:  ').split(sep=',')
+
+
+
+for x in url_in:
+  response = requests.get(x)
+  html_soup = BeautifulSoup(response.text)
+  main_content = html_soup.find('body')
+  #main_content = html_soup.find("div", {"class":"product-description"})
+  filename = x.rsplit('/', 1)[1]
+  with open(filename, 'a') as f:
+    f.write(str(main_content))
+  files.download(filename)
+print ("Backup is Created")
