@@ -1,0 +1,9 @@
+#extracting number/ digit from column
+
+Import re
+import pandas as pd
+
+def ExtractNumber(string):
+    return string.extract('(\d+)', expand=True)
+    
+dataset.columnName = dataset.columnName.apply(ExtractNumber)
