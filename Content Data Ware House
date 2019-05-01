@@ -1,0 +1,23 @@
+import html
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+file_name = input('Enter your your file name: ')
+url_in=input('Kindly Enter a url or list of urls sepatared by commams:  ').split(sep=' ')
+
+f = open(file_name+'.html', 'a')
+
+for x in url_in:
+  response=requests.get(x)
+  if response.status_code  == 200:
+    try:
+      html_soup = BeautifulSoup(response.text, 'html.parser')
+      body_text = html_soup.find('body')
+      f.write(str(body_text))
+    except:
+      pass
+              
+f.close()
+        
+print("File Created")
