@@ -1,0 +1,23 @@
+import pandas as pd
+from bs4 import BeautifulSoup
+import requests
+from datetime import datetime
+import re
+
+urls = input("Enter url here with tab seperated: ").split(sep=' ')
+
+for url in urls:
+  g_query = "http://webcache.googleusercontent.com/search?q=cache:"+url
+  response = requests.get(g_query)
+  if response.status_code  == 200:
+    try:
+      html = BeautifulSoup(response.text,'lxml')
+      x = html.find("div", {"id":"bN015htcoyT__google-cache-hdr"})
+      Cache_date = x.text
+      Cache_date = re.findall("\w+\s\d+,\s\d{4}", Cache_date)
+      print(f'{url} ~ {Cache_date}')
+    except:
+      pass
+    
+  else:
+    print(f'{url} ~ Not Cached')
