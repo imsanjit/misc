@@ -6,7 +6,7 @@ csv_file = open('Image_Details.csv', 'w', newline='')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['URL', 'Image_Details'])
 
-url_in = []
+url_in=input('Kindly Enter a url or list of urls sepatared by commams:  ').split(sep=' ')
 
 for i, x in enumerate(url_in):
     print(f'Working on url :{i + 1} : {x}')
